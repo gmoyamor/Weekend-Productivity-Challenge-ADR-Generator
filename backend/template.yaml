@@ -43,6 +43,11 @@ Resources:
         AllowMethods: "'GET,POST,DELETE,OPTIONS'"
         AllowHeaders: "'Content-Type'"
         AllowOrigin: "'*'"
+      MethodSettings:
+        - HttpMethod: "*"
+          ResourcePath: "/*"
+          ThrottlingBurstLimit: 5
+          ThrottlingRateLimit: 2
 
   # Lambda Functions
   GenerateADRFunction:
