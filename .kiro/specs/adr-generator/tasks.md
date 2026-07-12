@@ -156,75 +156,75 @@ Implementación incremental de un generador de ADRs impulsado por IA. Se constru
     - Test deleteADR: success, not found, delete error
     - _Requirements: 2.5, 6.2, 6.5_
 
-- [ ] 5. Checkpoint - Backend complete
+- [x] 5. Checkpoint - Backend complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Implement frontend components
-  - [ ] 6.1 Implement API client
+- [x] 6. Implement frontend components
+  - [x] 6.1 Implement API client
     - Create `frontend/lib/api.ts` with functions: `generateADR()`, `listADRs()`, `getADR(id)`, `deleteADR(id)`, `downloadADR(id)`
     - Handle errors, timeouts, and network failures with user-friendly messages
     - _Requirements: 5.2, 5.4_
 
-  - [ ] 6.2 Implement Navbar component
+  - [x] 6.2 Implement Navbar component
     - Create `frontend/components/Navbar.tsx` with persistent navigation (Generar, Mis ADRs)
     - Style with Tailwind CSS, ensure responsive layout
     - _Requirements: 5.2_
 
-  - [ ] 6.3 Implement ADRForm component — field rendering and validation
+  - [x] 6.3 Implement ADRForm component — field rendering and validation
     - Create `frontend/components/ADRForm.tsx`
     - Fields: título (required, 5-100), contexto (required, 20-2000), stack tecnológico (optional, max 200), restricciones (optional, max 500)
     - Client-side validation with inline error messages
     - _Requirements: 1.5, 4.1, 4.2, 4.5, 5.1_
 
-  - [ ] 6.4 Implement ADRForm component — detail level and submission
+  - [x] 6.4 Implement ADRForm component — detail level and submission
     - Add nivel de detalle (radio: Breve/Estándar/Detallado with descriptions, default Estándar)
     - Trim whitespace-only optional fields before submission
     - Wire form submission to API client
     - _Requirements: 4.1, 4.2, 4.5, 5.1_
 
-  - [ ] 6.5 Implement LoadingIndicator component
+  - [x] 6.5 Implement LoadingIndicator component
     - Create `frontend/components/LoadingIndicator.tsx` with elapsed time counter (updates every second)
     - Show timeout error after 30 seconds
     - _Requirements: 5.3, 5.4_
 
-  - [ ] 6.6 Implement ADRViewer component
+  - [x] 6.6 Implement ADRViewer component
     - Create `frontend/components/ADRViewer.tsx` to render markdown as formatted HTML
     - Style sections with proper hierarchy and readability
     - _Requirements: 1.2_
 
-  - [ ] 6.7 Implement ADRList component
+  - [x] 6.7 Implement ADRList component
     - Create `frontend/components/ADRList.tsx` — displays ADRs with title, date (DD/MM/YYYY), status
     - Show empty state with link to create first ADR
     - _Requirements: 2.2, 2.4_
 
-  - [ ] 6.8 Implement DeleteModal component
+  - [x] 6.8 Implement DeleteModal component
     - Create `frontend/components/DeleteModal.tsx` — shows ADR title, confirm/cancel buttons
     - Implement processing state during deletion and success/error feedback
     - _Requirements: 6.1, 6.2, 6.3_
 
-- [ ] 7. Implement frontend pages and wire everything together
-  - [ ] 7.1 Implement home page
+- [x] 7. Implement frontend pages and wire everything together
+  - [x] 7.1 Implement home page
     - Create `frontend/app/page.tsx` — landing with prominent CTA to generate ADR (above the fold)
     - Style with clear visual hierarchy and call-to-action button
     - _Requirements: 5.1_
 
-  - [ ] 7.2 Implement generate page
+  - [x] 7.2 Implement generate page
     - Create `frontend/app/generate/page.tsx` — ADRForm + LoadingIndicator + ADRViewer for result display
     - Handle success (show rendered ADR + save confirmation), partial failure (show ADR + save error + retry), and full error states
     - _Requirements: 1.2, 1.3, 1.4, 1.6_
 
-  - [ ] 7.3 Implement ADR list page
+  - [x] 7.3 Implement ADR list page
     - Create `frontend/app/adrs/page.tsx` — ADRList with error/retry handling
     - Wire to API client with loading and error states
     - _Requirements: 2.1, 2.5_
 
-  - [ ] 7.4 Implement ADR detail page
+  - [x] 7.4 Implement ADR detail page
     - Create `frontend/app/adrs/[id]/page.tsx` — ADRViewer with download button and delete button
     - Implement download: generate file with front matter, filename pattern NNN-titulo-kebab.md
     - Wire DeleteModal with confirmation flow and success notification (3+ seconds)
     - _Requirements: 2.3, 3.1, 3.2, 3.3, 3.4, 6.1, 6.4, 6.5_
 
-  - [ ] 7.5 Add responsive layout and global styles
+  - [x] 7.5 Add responsive layout and global styles
     - Apply responsive design: usable from 768px width, no horizontal scroll
     - Add layout.tsx with Navbar, consistent spacing, and readable typography
     - Ensure all interactive elements are accessible (keyboard nav, aria labels)

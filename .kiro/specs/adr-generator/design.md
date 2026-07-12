@@ -107,6 +107,14 @@ El formulario incluye textos guía (placeholder y helper text) para orientar al 
 | **Iconos** | Solo si aportan claridad. Estilo outline/line, no filled |
 | **Animaciones** | Mínimas: transiciones de 150-200ms para hover/focus. Sin animaciones decorativas |
 
+### Mejoras de UX
+
+| Mejora | Descripción |
+|--------|-------------|
+| **Link al ADR generado** | Después de generar exitosamente un ADR, mostrar un link "Ver ADR" que navega a `/adrs/{id}` para ver el detalle completo |
+| **Character counter** | Mostrar contador de caracteres en tiempo real debajo de los campos del formulario (ej: "45/100" para título, "120/2000" para contexto) con color rojo cuando se acerca al límite |
+| **Strip front matter en visor** | El ADRViewer debe eliminar el bloque YAML front matter (`---\n...\n---`) antes de renderizar el markdown, para que el usuario solo vea el contenido legible |
+
 ### Backend (Lambda + API Gateway)
 
 **Estructura del proyecto Lambda:**
