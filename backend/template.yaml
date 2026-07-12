@@ -46,8 +46,8 @@ Resources:
       MethodSettings:
         - HttpMethod: "*"
           ResourcePath: "/*"
-          ThrottlingBurstLimit: 5
-          ThrottlingRateLimit: 2
+          ThrottlingBurstLimit: 3
+          ThrottlingRateLimit: 1
 
   # Lambda Functions
   GenerateADRFunction:

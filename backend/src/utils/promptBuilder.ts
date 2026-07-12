@@ -71,18 +71,30 @@ Nivel de detalle: ${detailLevel}
 }
 
 /**
- * Sanitizes user input to reduce prompt injection risk.
+ * Sanitizes user input to reduce prompt injection and XSS risk.
  * Removes common injection patterns while preserving legitimate content.
  */
 function sanitizeInput(input: string): string {
   return input
+    // Remove HTML/script tags (XSS prevention)
+    .replace(/<[^>]*>/g, "")
     // Remove attempts to override system instructions
     .replace(/ignore\s+(all\s+)?previous\s+instructions/gi, "")
     .replace(/you\s+are\s+now/gi, "")
+    .replace(/act\s+as\s+(a|an)?/gi, "")
+    .replace(/pretend\s+(you\s+are|to\s+be)/gi, "")
+    .replace(/forget\s+(all|everything|your)/gi, "")
+    .replace(/disregard\s+(all|any|the)/gi, "")
+    .replace(/new\s+instructions?:/gi, "")
     .replace(/system\s*:/gi, "")
     .replace(/assistant\s*:/gi, "")
+    .replace(/human\s*:/gi, "")
     .replace(/\[INST\]/gi, "")
     .replace(/<\/?s>/gi, "")
+    .replace(/<<SYS>>/gi, "")
+    .replace(/<\/SYS>/gi, "")
     .replace(/```/g, "")
+    // Limit consecutive special characters
+    .replace(/([!?.]){3,}/g, "$1$1")
     .trim();
 }
