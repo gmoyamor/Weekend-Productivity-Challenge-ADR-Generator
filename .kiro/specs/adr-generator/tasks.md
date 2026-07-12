@@ -230,8 +230,8 @@ Implementación incremental de un generador de ADRs impulsado por IA. Se constru
     - Ensure all interactive elements are accessible (keyboard nav, aria labels)
     - _Requirements: 5.2, 5.5_
 
-- [ ] 8. Implement ADR section validation
-  - [ ] 8.1 Implement ADR section validator utility
+- [x] 8. Implement ADR section validation
+  - [x] 8.1 Implement ADR section validator utility
     - Create `backend/src/utils/sectionValidator.ts`
     - Validate that Bedrock output contains all required sections: Título, Fecha, Estado, Contexto, Decisión, Alternativas Consideradas, Consecuencias
     - Return list of missing sections if invalid
@@ -241,7 +241,7 @@ Implementación incremental de un generador de ADRs impulsado por IA. Se constru
     - **Property 8: ADR section validator identifies required sections**
     - **Validates: Requirements 1.1**
 
-- [ ] 9. Final checkpoint - Full integration
+- [x] 9. Final checkpoint - Full integration
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

@@ -3,3 +3,4 @@ export { generateFilename } from "./slugify";
 export { buildMarkdownFile, formatDate } from "./markdownBuilder";
 export { buildPrompt } from "./promptBuilder";
 export { validateGenerateRequest, ValidationResult } from "./validation";
+export { validateADRSections, SectionValidationResult } from "./sectionValidator";

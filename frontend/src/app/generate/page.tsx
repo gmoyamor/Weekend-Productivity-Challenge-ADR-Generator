@@ -57,7 +57,7 @@ export default function GeneratePage() {
 
   return (
     <div className="max-w-[720px] mx-auto px-6 py-10">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-8">
+      <h1 className="text-2xl font-semibold text-white mb-8">
         Generar ADR
       </h1>
 
@@ -85,13 +85,13 @@ export default function GeneratePage() {
           <div className="mt-8 flex justify-center gap-4">
             <Link
               href={`/adrs/${generatedADR.id}`}
-              className="rounded-md bg-[#232f3e] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1a2330]"
+              className="rounded-md bg-[#FF9900] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#FFB84D]"
             >
               Ver ADR
             </Link>
             <button
               onClick={handleReset}
-              className="rounded-md border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#232f3e] hover:text-[#232f3e]"
+              className="rounded-md border border-gray-600 px-5 py-2 text-sm font-medium text-gray-300 transition-colors hover:border-[#FF9900] hover:text-[#FF9900]"
             >
               Generar otro
             </button>
@@ -117,7 +117,7 @@ export default function GeneratePage() {
           <div className="mt-8 flex justify-center">
             <button
               onClick={handleReset}
-              className="rounded-md border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-[#232f3e] hover:text-[#232f3e]"
+              className="rounded-md border border-gray-600 px-5 py-2 text-sm font-medium text-gray-300 transition-colors hover:border-[#FF9900] hover:text-[#FF9900]"
             >
               Generar otro
             </button>

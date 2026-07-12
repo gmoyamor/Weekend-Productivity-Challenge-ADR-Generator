@@ -35,8 +35,8 @@ export default function LoadingIndicator({ onTimeout }: LoadingIndicatorProps) {
   if (timedOut) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-12">
-        <div className="h-10 w-10 rounded-full border-4 border-red-200 border-t-red-500" />
-        <p className="text-base text-red-600 font-medium">
+        <div className="h-10 w-10 rounded-full border-4 border-red-900/30 border-t-red-400" />
+        <p className="text-base text-red-400 font-medium">
           La solicitud excedió el tiempo de espera.
         </p>
       </div>
@@ -45,8 +45,8 @@ export default function LoadingIndicator({ onTimeout }: LoadingIndicatorProps) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-12">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-zinc-200 border-t-[#232f3e]" />
-      <p className="text-base text-zinc-600">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-700 border-t-[#FF9900]" />
+      <p className="text-base text-gray-300">
         Generando ADR... ({elapsedSeconds}s)
       </p>
     </div>

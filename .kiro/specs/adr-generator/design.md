@@ -92,20 +92,79 @@ El formulario incluye textos guía (placeholder y helper text) para orientar al 
 
 ### Estilo Visual — Guía de Diseño UI
 
-**Filosofía:** Minimalista, flat design, moderno.
+**Filosofía:** Minimalista, flat design, moderno. Tema oscuro (navy AWS) con acento naranja AWS.
 
-| Aspecto | Directriz |
-|---------|-----------|
-| **Layout** | Máximo 720px de ancho para contenido, centrado, espaciado generoso (padding 24-32px) |
-| **Colores** | Paleta reducida: fondo blanco/gris muy claro (#fafafa), texto oscuro (#1a1a1a), acento único (azul AWS #232f3e o similar) |
-| **Tipografía** | Font system stack (Inter o similar sans-serif), tamaños claros: h1 2rem, h2 1.5rem, body 1rem |
-| **Bordes** | Sin bordes gruesos ni sombras pesadas. Usar border-1 gris claro o sin borde. Radius sutil (6-8px) |
-| **Botones** | Flat, sin gradientes ni sombras. Color sólido para primario, outline para secundario |
-| **Cards/Containers** | Fondo blanco con borde sutil o sin borde, sin box-shadow |
-| **Inputs** | Borde inferior o borde completo muy sutil, foco con color acento |
-| **Espaciado** | Mucho aire entre secciones. Menos es más. |
-| **Iconos** | Solo si aportan claridad. Estilo outline/line, no filled |
-| **Animaciones** | Mínimas: transiciones de 150-200ms para hover/focus. Sin animaciones decorativas |
+#### Paleta de Colores
+
+| Elemento | Color | Hex | Tailwind |
+|----------|-------|-----|----------|
+| Navbar fondo | Navy AWS | #232F3E | bg-[#232F3E] |
+| Fondo principal | Dark navy | #1A242F | bg-[#1A242F] |
+| CTA primario | Naranja AWS | #FF9900 | bg-[#FF9900] |
+| CTA primario hover | Naranja claro | #FFB84D | hover:bg-[#FFB84D] |
+| CTA secundario | Borde blanco | #FFFFFF | border-white text-white |
+| Título | Blanco | #FFFFFF | text-white |
+| Subtítulo | Gris claro | #D1D5DB | text-gray-300 |
+| Feature card fondo | Navy más claro | #2A3A4A | bg-[#2A3A4A] |
+| Feature card borde | Gris tenue | #3B4B5B | border-[#3B4B5B] |
+| Texto body cards | Gris suave | #9CA3AF | text-gray-400 |
+
+#### Tipografía
+
+- Font: Inter o font-sans del sistema
+- Título hero: text-5xl font-bold (desktop), text-3xl (mobile)
+- Subtítulo: text-lg font-normal
+- Navbar brand: text-lg font-semibold
+- Feature titles: text-base font-semibold
+- Feature body: text-sm font-normal
+
+#### Estructura de la Landing (top → bottom)
+
+**1. Navbar**
+- Alto: h-14, Fondo: #232F3E, Borde inferior: border-b border-gray-700
+- Logo/brand izquierda: "ADR Generator" en blanco semibold
+- Links derecha: "Generar" | "Mis ADRs" en text-gray-300 hover:text-white
+- Padding horizontal: px-6
+
+**2. Hero Section**
+- Padding: py-24 (desktop), py-16 (mobile), centrado: text-center
+- Título: "ADR Generator" → text-5xl font-bold text-white
+- Subtítulo: "Genera Architecture Decision Records con IA en segundos" → text-lg text-gray-300 mt-4
+- Botones stack vertical gap-4 mt-10:
+  - Primario: "Generar ADR" → fondo #FF9900, text-white font-semibold, px-8 py-3 rounded-md
+  - Secundario: "Ver mis ADRs" → border-white text-white px-8 py-3 rounded-md hover:bg-white/10
+
+**3. Features Section (3 columnas)**
+- Fondo: #1A242F, separador: border-t border-gray-700, padding: py-16 px-6
+- Grid: grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto
+- Cada card: fondo #2A3A4A, border border-[#3B4B5B], p-6, rounded-lg
+  - 🧠 IA con Amazon Bedrock — Genera ADRs estructurados usando Claude o Nova
+  - 📦 Almacenamiento en S3 — Tus decisiones se guardan como Markdown
+  - 📄 Formato Markdown estándar — Compatible con cualquier wiki, repo o sistema
+
+**4. Footer**
+- Fondo: #232F3E, py-6 px-6, border-t border-gray-700
+- Texto: "Construido con Next.js, AWS Lambda y Amazon Bedrock" → text-sm text-gray-400 text-center
+
+#### Interacciones
+
+- Botones: transition-colors duration-200
+- Links navbar: transition-colors duration-150
+- CTA hover: naranja más claro + cursor-pointer
+- Focus visible: focus:ring-2 focus:ring-[#FF9900] focus:ring-offset-2 focus:ring-offset-[#1A242F]
+
+#### Responsive
+
+- Mobile (< 768px): título text-3xl, hero py-16, features 1 columna
+- Desktop (≥ 768px): título text-5xl, hero py-24, features 3 columnas
+
+#### Notas
+
+- No sombras ni gradientes (flat)
+- No imágenes de fondo
+- Emojis como íconos (no icon library)
+- El naranja AWS solo en CTA primario para que destaque
+- Contraste navy + naranja = branding AWS reconocible
 
 ### Mejoras de UX
 

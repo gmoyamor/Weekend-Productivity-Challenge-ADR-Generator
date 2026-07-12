@@ -39,20 +39,20 @@ export default function ADRsPage() {
 
   return (
     <div className="mx-auto max-w-[720px] px-6 py-10">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-8">Mis ADRs</h1>
+      <h1 className="text-2xl font-semibold text-white mb-8">Mis ADRs</h1>
 
       {isLoading && (
         <div className="text-center py-16">
-          <p className="text-gray-500 text-base">Cargando...</p>
+          <p className="text-gray-400 text-base">Cargando...</p>
         </div>
       )}
 
       {error && (
         <div className="text-center py-16">
-          <p className="text-red-600 text-base mb-4">{error}</p>
+          <p className="text-red-400 text-base mb-4">{error}</p>
           <button
             onClick={fetchADRs}
-            className="px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors duration-150"
+            className="px-5 py-2.5 bg-[#FF9900] text-white text-sm font-medium rounded-md hover:bg-[#FFB84D] transition-colors duration-150"
           >
             Reintentar
           </button>

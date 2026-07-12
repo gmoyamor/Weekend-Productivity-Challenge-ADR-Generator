@@ -39,21 +39,21 @@ export default function DeleteModal({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-black/60"
         onClick={!isDeleting ? onCancel : undefined}
         aria-hidden="true"
       />
 
       {/* Modal card */}
-      <div className="relative z-10 w-full max-w-[400px] mx-4 bg-white rounded-lg p-6 shadow-sm">
+      <div className="relative z-10 w-full max-w-[400px] mx-4 bg-[#2A3A4A] rounded-lg p-6">
         <h2
           id="delete-modal-title"
-          className="text-lg font-semibold text-[#1a1a1a]"
+          className="text-lg font-semibold text-white"
         >
           ¿Eliminar ADR?
         </h2>
 
-        <p className="mt-3 text-sm text-zinc-600 leading-relaxed">
+        <p className="mt-3 text-sm text-gray-300 leading-relaxed">
           ¿Estás seguro de que querés eliminar &lsquo;{adrTitle}&rsquo;? Esta
           acción no se puede deshacer.
         </p>
@@ -63,7 +63,7 @@ export default function DeleteModal({
             type="button"
             onClick={onCancel}
             disabled={isDeleting}
-            className="px-4 py-2 text-sm font-medium text-zinc-700 border border-zinc-300 rounded-md hover:bg-zinc-50 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 text-sm font-medium text-gray-300 border border-gray-600 rounded-md hover:bg-white/5 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancelar
           </button>

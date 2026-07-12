@@ -81,7 +81,7 @@ export default function ADRDetailPage() {
   if (isLoading) {
     return (
       <div className="max-w-[720px] mx-auto px-6 py-12 text-center">
-        <p className="text-gray-600">Cargando...</p>
+        <p className="text-gray-400">Cargando...</p>
       </div>
     );
   }
@@ -89,10 +89,10 @@ export default function ADRDetailPage() {
   if (error) {
     return (
       <div className="max-w-[720px] mx-auto px-6 py-12 text-center">
-        <p className="text-red-600 mb-4">{error}</p>
+        <p className="text-red-400 mb-4">{error}</p>
         <Link
           href="/adrs"
-          className="text-sm font-medium text-[#232f3e] hover:underline"
+          className="text-sm font-medium text-[#FF9900] hover:underline"
         >
           Volver
         </Link>
@@ -119,7 +119,7 @@ export default function ADRDetailPage() {
       )}
 
       {/* Title */}
-      <h1 className="text-2xl font-semibold text-[#1a1a1a] mb-6">
+      <h1 className="text-2xl font-semibold text-white mb-6">
         {adr.title}
       </h1>
 
@@ -128,14 +128,14 @@ export default function ADRDetailPage() {
         <button
           type="button"
           onClick={handleDownload}
-          className="px-4 py-2 text-sm font-medium text-[#232f3e] border border-zinc-300 rounded-md hover:bg-zinc-50 transition-colors duration-150"
+          className="px-4 py-2 text-sm font-medium text-gray-300 border border-gray-600 rounded-md hover:border-[#FF9900] hover:text-[#FF9900] transition-colors duration-150"
         >
           Descargar
         </button>
         <button
           type="button"
           onClick={handleDeleteClick}
-          className="px-4 py-2 text-sm font-medium text-red-600 border border-red-300 rounded-md hover:bg-red-50 transition-colors duration-150"
+          className="px-4 py-2 text-sm font-medium text-red-400 border border-red-600 rounded-md hover:bg-red-600/10 transition-colors duration-150"
         >
           Eliminar
         </button>

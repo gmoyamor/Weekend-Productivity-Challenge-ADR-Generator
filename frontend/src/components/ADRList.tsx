@@ -20,22 +20,22 @@ interface ADRListProps {
 }
 
 const statusStyles: Record<ADRStatus, string> = {
-  Propuesto: "bg-blue-50 text-blue-700 border border-blue-200",
-  Aceptado: "bg-green-50 text-green-700 border border-green-200",
-  Deprecado: "bg-amber-50 text-amber-700 border border-amber-200",
-  Reemplazado: "bg-red-50 text-red-700 border border-red-200",
+  Propuesto: "bg-blue-900/30 text-blue-300 border border-blue-700",
+  Aceptado: "bg-green-900/30 text-green-300 border border-green-700",
+  Deprecado: "bg-amber-900/30 text-amber-300 border border-amber-700",
+  Reemplazado: "bg-red-900/30 text-red-300 border border-red-700",
 };
 
 export default function ADRList({ adrs, onSelect }: ADRListProps) {
   if (adrs.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="text-gray-500 text-lg mb-4">
+        <p className="text-gray-400 text-lg mb-4">
           No hay ADRs generados aún
         </p>
         <Link
           href="/generate"
-          className="inline-block px-5 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors duration-150"
+          className="inline-block px-5 py-2.5 bg-[#FF9900] text-white text-sm font-medium rounded-md hover:bg-[#FFB84D] transition-colors duration-150"
         >
           Crear tu primer ADR
         </Link>
@@ -44,18 +44,18 @@ export default function ADRList({ adrs, onSelect }: ADRListProps) {
   }
 
   return (
-    <ul className="divide-y divide-gray-100">
+    <ul className="divide-y divide-gray-700">
       {adrs.map((adr) => (
         <li key={adr.id} className="py-4 first:pt-0 last:pb-0">
           <div className="flex items-center justify-between gap-4">
             <div className="min-w-0 flex-1">
               <button
                 onClick={() => onSelect(adr.id)}
-                className="text-left text-base font-medium text-gray-900 hover:text-blue-700 transition-colors duration-150 truncate block w-full"
+                className="text-left text-base font-medium text-white hover:text-[#FF9900] transition-colors duration-150 truncate block w-full"
               >
                 {adr.title}
               </button>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-400 mt-1">
                 {formatDate(adr.createdAt)}
               </p>
             </div>
