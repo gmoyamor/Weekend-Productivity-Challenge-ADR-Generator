@@ -85,31 +85,31 @@ Implementación incremental de un generador de ADRs impulsado por IA. Se constru
     - **Property 6: Front matter YAML round-trip preserves ADR metadata**
     - **Validates: Requirements 2.2, 3.3**
 
-- [ ] 3. Implement backend services
+- [x] 3. Implement backend services
   - [x] 3.1 Implement S3 service — read operations
     - Create `backend/src/services/s3Service.ts`
     - Implement `getIndex()` and `getADRFile(filename)` functions
     - Handle S3 errors gracefully, use environment variable for bucket name
     - _Requirements: 1.3, 2.1_
 
-  - [ ] 3.2 Implement S3 service — write and delete operations
+  - [x] 3.2 Implement S3 service — write and delete operations
     - Implement `updateIndex(index)`, `putADRFile(filename, content)`, and `deleteADRFile(filename)`
     - Handle S3 errors gracefully with typed error responses
     - _Requirements: 1.3, 6.2_
 
-  - [ ] 3.3 Implement Bedrock service
+  - [x] 3.3 Implement Bedrock service
     - Create `backend/src/services/bedrockService.ts`
     - Implement `generateADRContent(prompt)` function using `InvokeModelCommand`
     - Configure model ID via environment variable (Claude or Nova)
     - _Requirements: 1.1, 1.4_
 
-  - [ ] 3.4 Implement ADR business logic — create and list
+  - [x] 3.4 Implement ADR business logic — create and list
     - Create `backend/src/services/adrService.ts`
     - Implement `createADR(request)`: orchestrates validation → prompt build → Bedrock invoke → markdown build → S3 persist → index update
     - Implement `listADRs()`: get index, sort descending by date
     - _Requirements: 1.1, 1.3, 1.6, 2.1_
 
-  - [ ] 3.5 Implement ADR business logic — get, delete, and partial failure handling
+  - [x] 3.5 Implement ADR business logic — get, delete, and partial failure handling
     - Implement `getADR(id)`: lookup in index, fetch from S3
     - Implement `deleteADR(id)`: remove from S3, update index
     - Handle partial success (Bedrock OK but S3 save fails → return content with error flag)
@@ -120,26 +120,26 @@ Implementación incremental de un generador de ADRs impulsado por IA. Se constru
     - **Property 9: Deleting an ADR removes it from the index**
     - **Validates: Requirements 2.1, 6.4**
 
-- [ ] 4. Implement Lambda handlers
-  - [ ] 4.1 Implement generateADR handler — success and validation paths
+- [x] 4. Implement Lambda handlers
+  - [x] 4.1 Implement generateADR handler — success and validation paths
     - Create `backend/src/handlers/generateADR.ts`
     - Parse and validate request body, call adrService.createADR
     - Return 201 on success, 400 on validation error
     - _Requirements: 1.1, 1.3, 1.5_
 
-  - [ ] 4.2 Implement generateADR handler — error and partial failure paths
+  - [x] 4.2 Implement generateADR handler — error and partial failure paths
     - Handle 500 on generation failure, 504 on timeout
     - Handle 207 partial success (ADR generated but save failed)
     - Add CORS headers to all responses
     - _Requirements: 1.4, 1.6_
 
-  - [ ] 4.3 Implement listADRs and getADR handlers
+  - [x] 4.3 Implement listADRs and getADR handlers
     - Create `backend/src/handlers/listADRs.ts` — GET /adrs, return sorted list or 500
     - Create `backend/src/handlers/getADR.ts` — GET /adrs/{id}, return ADR or 404
     - Add CORS headers to all responses
     - _Requirements: 2.1, 2.3, 2.5_
 
-  - [ ] 4.4 Implement deleteADR handler
+  - [x] 4.4 Implement deleteADR handler
     - Create `backend/src/handlers/deleteADR.ts` — DELETE /adrs/{id}, return 200 or 404/500
     - Add CORS headers to all responses
     - _Requirements: 6.2, 6.5_

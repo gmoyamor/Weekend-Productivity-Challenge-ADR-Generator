@@ -1,4 +1,9 @@
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  GetObjectCommand,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import { ADRIndex } from "../types";
 
 const BUCKET_NAME = process.env.ADR_BUCKET_NAME || "";
@@ -56,6 +61,71 @@ export async function getADRFile(filename: string): Promise<string> {
       throw new Error(`ADR file "${filename}" not found`);
     }
     throw error;
+  }
+}
+
+/**
+ * Saves the ADR index to S3 (index.json).
+ * @param index - The full ADR index to persist
+ * @throws Error if the S3 put operation fails
+ */
+export async function updateIndex(index: ADRIndex): Promise<void> {
+  try {
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: "index.json",
+      Body: JSON.stringify(index, null, 2),
+      ContentType: "application/json",
+    });
+    await s3Client.send(command);
+  } catch (error: unknown) {
+    throw new Error(
+      `Failed to update ADR index: ${error instanceof Error ? error.message : "Unknown S3 error"}`
+    );
+  }
+}
+
+/**
+ * Saves an ADR markdown file to S3.
+ * @param filename - The ADR filename (e.g., "001-usar-dynamodb.md")
+ * @param content - The full markdown content to store
+ * @throws Error if the S3 put operation fails
+ */
+export async function putADRFile(
+  filename: string,
+  content: string
+): Promise<void> {
+  try {
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: `adrs/${filename}`,
+      Body: content,
+      ContentType: "text/markdown",
+    });
+    await s3Client.send(command);
+  } catch (error: unknown) {
+    throw new Error(
+      `Failed to save ADR file "${filename}": ${error instanceof Error ? error.message : "Unknown S3 error"}`
+    );
+  }
+}
+
+/**
+ * Deletes an ADR markdown file from S3.
+ * @param filename - The ADR filename to delete (e.g., "001-usar-dynamodb.md")
+ * @throws Error if the S3 delete operation fails
+ */
+export async function deleteADRFile(filename: string): Promise<void> {
+  try {
+    const command = new DeleteObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: `adrs/${filename}`,
+    });
+    await s3Client.send(command);
+  } catch (error: unknown) {
+    throw new Error(
+      `Failed to delete ADR file "${filename}": ${error instanceof Error ? error.message : "Unknown S3 error"}`
+    );
   }
 }
 
