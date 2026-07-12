@@ -2,3 +2,7 @@ node_modules/
 dist/
 coverage/
 *.js.map
+.aws-sam/
+samconfig.toml
+.env
+.env.*

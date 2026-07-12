@@ -1,0 +1,123 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: ADR Generator - Backend API (Lambda + API Gateway + S3)
+
+Globals:
+  Function:
+    Timeout: 35
+    Runtime: nodejs20.x
+    MemorySize: 256
+    Environment:
+      Variables:
+        ADR_BUCKET_NAME: !Ref ADRBucket
+        BEDROCK_MODEL_ID: !Ref BedrockModelId
+        AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+
+Parameters:
+  BedrockModelId:
+    Type: String
+    Default: amazon.nova-lite-v1:0
+    Description: Bedrock model ID to use for ADR generation
+
+Resources:
+  # S3 Bucket for ADR storage
+  ADRBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # API Gateway
+  ADRApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Cors:
+        AllowMethods: "'GET,POST,DELETE,OPTIONS'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'*'"
+
+  # Lambda Functions
+  GenerateADRFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/generateADR.handler
+      CodeUri: .
+      Events:
+        GenerateADR:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ADRApi
+            Path: /adrs
+            Method: POST
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref ADRBucket
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource: "*"
+
+  ListADRsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/listADRs.handler
+      CodeUri: .
+      Events:
+        ListADRs:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ADRApi
+            Path: /adrs
+            Method: GET
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ADRBucket
+
+  GetADRFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/getADR.handler
+      CodeUri: .
+      Events:
+        GetADR:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ADRApi
+            Path: /adrs/{id}
+            Method: GET
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ADRBucket
+
+  DeleteADRFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dist/handlers/deleteADR.handler
+      CodeUri: .
+      Events:
+        DeleteADR:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ADRApi
+            Path: /adrs/{id}
+            Method: DELETE
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref ADRBucket
+
+Outputs:
+  ApiUrl:
+    Description: API Gateway endpoint URL
+    Value: !Sub "https://${ADRApi}.execute-api.${AWS::Region}.amazonaws.com/prod"
+  BucketName:
+    Description: S3 bucket for ADR storage
+    Value: !Ref ADRBucket

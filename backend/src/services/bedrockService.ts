@@ -28,11 +28,11 @@ function buildRequestBody(prompt: string, modelId: string): string {
     });
   }
 
-  // Amazon Nova models
+  // Amazon Nova models (messages format)
   return JSON.stringify({
-    inputText: prompt,
-    textGenerationConfig: {
-      maxTokenCount: 4096,
+    messages: [{ role: "user", content: [{ text: prompt }] }],
+    inferenceConfig: {
+      maxTokens: 4096,
       temperature: 0.7,
     },
   });
@@ -79,25 +79,26 @@ function parseResponseBody(responseBody: string, modelId: string): string {
     return textBlock.text;
   }
 
-  // Amazon Nova models
+  // Amazon Nova models (messages format response)
   const novaResponse = parsed as {
-    results?: Array<{ outputText?: string }>;
+    output?: { message?: { content?: Array<{ text?: string }> } };
   };
 
   if (
-    !novaResponse.results ||
-    !Array.isArray(novaResponse.results) ||
-    novaResponse.results.length === 0
+    !novaResponse.output ||
+    !novaResponse.output.message ||
+    !novaResponse.output.message.content ||
+    novaResponse.output.message.content.length === 0
   ) {
     throw new Error(
       "Failed to parse Bedrock response: unexpected Nova response structure"
     );
   }
 
-  const outputText = novaResponse.results[0].outputText;
+  const outputText = novaResponse.output.message.content[0].text;
   if (!outputText) {
     throw new Error(
-      "Failed to parse Bedrock response: no outputText in Nova response"
+      "Failed to parse Bedrock response: no text in Nova response"
     );
   }
 
