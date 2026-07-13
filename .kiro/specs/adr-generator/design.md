@@ -593,3 +593,36 @@ Properties a implementar:
 - Cypress o Playwright para flujo completo: crear ADR → ver en lista → descargar → eliminar
 - Prioridad baja para un proyecto de fin de semana
 
+
+## Security
+
+### Medidas implementadas
+
+| Capa | Protección | Detalle |
+|------|-----------|---------|
+| API Gateway | Rate limiting | 1 req/s, burst 3 (ThrottlingRateLimit/BurstLimit) |
+| API Gateway | CORS | Solo métodos necesarios (GET, POST, DELETE, OPTIONS) |
+| Lambda | Input sanitization | Strip HTML, prompt injection patterns (15+ regex) |
+| Lambda | Prompt hardening | Instrucción de sistema que restringe al dominio ADR |
+| Lambda | Field validation | Longitudes estrictas, tipos validados, whitespace sanitization |
+| Lambda | Timeout | 35s máximo de ejecución |
+| S3 | Encryption | AES-256 server-side encryption |
+| S3 | Access control | PublicAccessBlock con las 4 flags activas |
+| Infra | IAM least privilege | Cada Lambda solo tiene permisos para las operaciones S3 que necesita |
+
+### Prompt Injection Mitigation
+
+La función `sanitizeInput()` en `promptBuilder.ts` filtra:
+- Tags HTML/script (previene XSS si el contenido se renderiza)
+- Patrones de jailbreak: "ignore instructions", "you are now", "act as", "pretend to be", "forget", "disregard"
+- Tokens de formato de modelos: `[INST]`, `<<SYS>>`, code fences
+- El prompt incluye hardening: "Solo genera contenido relacionado con decisiones de arquitectura"
+
+### Roadmap de seguridad (post-challenge)
+
+1. **Cognito Authentication** — User Pool, Cognito Authorizer, separación por usuario
+2. **AWS WAF** — IP reputation, rate limiting avanzado, managed rules
+3. **CORS restrictivo** — Solo el dominio de Amplify
+4. **Budget alarm** — Notificación al superar $5/mes
+5. **API Keys + Usage Plans** — Cuotas por consumidor
+6. **Content-Security-Policy** — Headers en frontend
